@@ -124,8 +124,34 @@ class MerkleTree{
           };
       }
         
-        
+    getHeightOfRoot(root_){
+        var queue = []
+        var new_queue = []
+        queue.push(root_)
+        new_queue.push(root_)
+        while (new_queue.length != 0){
+            
+            var curr_node = new_queue.pop(0)
+            for(let each_node in curr_node.next_nodes){
+                queue.push(curr_node.next_nodes[each_node])
+                new_queue.push(curr_node.next_nodes[each_node])
+            }
+        }
+        return queue.length
+    }
+
+    displayNode(node){
+        return
+    }
+
+    findNode(index){
+        return
+    }
+
     getProofOfInclusion(index){
+        var root_ = this.find_merkel_hash(this.merkle_nodes) 
+
+        
         let value_idx = null
         for (let each_entry in this.treeMap) {
             if (index===this.treeMap[each_entry]['value'].get_hash_content()){
@@ -134,10 +160,10 @@ class MerkleTree{
             }
           };
         return {
-            peakBagging: this.treeMap.slice(value_idx),
+            // peakBagging: this.treeMap.slice(value_idx),
             root: this.getRoot(),
             siblings: 2,
-            width: this.max_content
+            width: this.getHeightOfRoot(root_)
         }
     }
     updateChild(index, value){

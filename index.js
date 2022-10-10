@@ -43,7 +43,7 @@ let output = merkleTree.getRoot();
 console.log(output); //126a97e6963a8d86b53757446743db0d66e62dad392d29d2986a8a52348a2cea
 // console.log(merkleTree.getProofOfInclusion('sff'))
 // merkleTree.updateChild(2,'sffeefefegf')
-// console.log(merkleTree.getProofOfInclusion(0))
+console.log(merkleTree.getProofOfInclusion(0))
 // console.log(merkleTree.treeMap)
 // verify 
 
