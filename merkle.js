@@ -141,29 +141,43 @@ class MerkleTree{
     }
 
     displayNode(node){
-        return
+        return node
     }
 
-    findNode(index){
-        return
+    findNode(root_,index){
+        var queue = []
+        var new_queue = []
+        queue.push(root_)
+        new_queue.push(root_)
+        while (new_queue.length != 0){
+            
+            var curr_node = new_queue.pop(0)
+            if (curr_node.get_hash_content()===index){
+                return curr_node
+            }
+            for(let each_node in curr_node.next_nodes){
+                queue.push(curr_node.next_nodes[each_node])
+                new_queue.push(curr_node.next_nodes[each_node])
+            }
+        }
+        return null
+    }
+
+    findSib(node){
+        return node.next_nodes.length
     }
 
     getProofOfInclusion(index){
+        // console.log(index)
         var root_ = this.find_merkel_hash(this.merkle_nodes) 
+        var node = this.findNode(root_, index)
+        // console.log(node.get_hash_content())
 
-        
-        let value_idx = null
-        for (let each_entry in this.treeMap) {
-            if (index===this.treeMap[each_entry]['value'].get_hash_content()){
-                console.log(index,this.treeMap[each_entry]['value'].get_hash_content() )
-                value_idx=each_entry
-            }
-          };
         return {
-            // peakBagging: this.treeMap.slice(value_idx),
+            peakBagging: this.displayNode(node),
             root: this.getRoot(),
-            siblings: 2,
-            width: this.getHeightOfRoot(root_)
+            siblings: this.findSib(node),
+            width: this.getHeightOfRoot(node)
         }
     }
     updateChild(index, value){
