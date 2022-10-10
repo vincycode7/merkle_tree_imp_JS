@@ -23,6 +23,8 @@ class MerkleNode{
                 this.content = item.content;
             }
             this.hash_func = null;
+            this.next_nodes = []
+            this.prev_nodes = []
       }
         
 
@@ -111,6 +113,7 @@ class MerkleTree{
         this.merkle_nodes = []
         this.max_content = entries.length
         this.treeMap = []
+        this.pointers = []
         for (let each_entry in entries) {
             merkle_nodes_.push(new MerkleNode(entries[each_entry]));
           };
@@ -169,10 +172,13 @@ class MerkleTree{
         if (sorted_hased_contents_len === 1){
             let value = sorted_hased_contents[0]
             this.treeMap.push({'type':'c', 'value':value})
+            this.prev_nodes = [value]
             return value;
         }
         else if(sorted_hased_contents_len > 1){
             let div = ~~(sorted_hased_contents_len/2)
+            // create a new node
+            // var parent_node = MerkleNode(sorted_hased_contents)
             var node_1 = this.find_merkel_hash(sorted_hased_contents.slice(0,div))
             var node_2 = this.find_merkel_hash(sorted_hased_contents.slice(div))
         }
@@ -188,6 +194,9 @@ class MerkleTree{
         //     console.log(new_node.get_hash_content())
         // }
         var new_node = node_1.add(node_2)
+        new_node.next_nodes = [node_1, node_2]
+        node_1.prev_nodes = [new_node]
+        node_2.prev_nodes = [new_node]
         this.treeMap.push({'type':'n', 'value':new_node})
         return  new_node
 
@@ -198,7 +207,11 @@ class MerkleTree{
 
         // hashed_contents = [each_merkle_node for each_merkle_node in self.merkle_nodes]
         // print(hashed_contents)
-        return this.find_merkel_hash(this.merkle_nodes).get_hash_content()
+        var root_ = this.find_merkel_hash(this.merkle_nodes) 
+        // for(let each_node in root_.next_nodes){
+        //     console.log(root_.next_nodes[each_node].prev_nodes)
+        // }
+        return root_.get_hash_content()
     }
 }
 
