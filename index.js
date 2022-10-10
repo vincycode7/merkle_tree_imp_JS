@@ -40,10 +40,20 @@ In conclusion our whitepaper proves the following thesis
 let entries = [A,B,C,D,E];
 let merkleTree = new MerkleTree(keccakDigestFunction,entries);
 let output = merkleTree.getRoot();
+console.log("Initial output of root")
 console.log(output); //126a97e6963a8d86b53757446743db0d66e62dad392d29d2986a8a52348a2cea
-// console.log(merkleTree.getProofOfInclusion('sff'))
-// merkleTree.updateChild(2,'sffeefefegf')
-console.log(merkleTree.getProofOfInclusion(keccakDigestFunction('566219a21fa845dac884ad694f1e4861f7fb5f9216bc10d412c0adeddecd7f4633e406e29108896bad70e8e624cc088301e5fcc2925e6c4c865a108117e10ef5')))
-// console.log(merkleTree.treeMap)
+
+console.log("\n\nOut of root when node 0 and 1 are updated and the new root is calculatedd and displayed")
+merkleTree.updateChild(1,'sffeefefegf')
+merkleTree.updateChild(0,'sffeeejefefefegf')
+// merkleTree.updateChild(2,'sffeeeklwdjefefefegf')
+// merkleTree.updateChild(3,'sffeealskjnceklwdjefefefegf')
+output = merkleTree.getRoot();
+console.log(output); //126a97e6963a8d86b53757446743db0d66e62dad392d29d2986a8a52348a2cea
+hash = keccakDigestFunction('566219a21fa845dac884ad694f1e4861f7fb5f9216bc10d412c0adeddecd7f4633e406e29108896bad70e8e624cc088301e5fcc2925e6c4c865a108117e10ef5')
+console.log("\n\nGetting the proof of inclusion of a node with hash, ", hash)
+included_node = merkleTree.getProofOfInclusion(hash)
+console.log(included_node.peakBagging.get_hash_content())
+console.log(included_node)
 // verify 
 

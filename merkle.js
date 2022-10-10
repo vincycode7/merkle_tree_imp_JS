@@ -169,21 +169,28 @@ class MerkleTree{
 
     getProofOfInclusion(index){
         // console.log(index)
-        var root_ = this.find_merkel_hash(this.merkle_nodes) 
-        var node = this.findNode(root_, index)
-        // console.log(node.get_hash_content())
+        try{
+            var root_ = this.find_merkel_hash(this.merkle_nodes) 
+            var node = this.findNode(root_, index)
+            // console.log(node.get_hash_content())
 
-        return {
-            peakBagging: this.displayNode(node),
-            root: this.getRoot(),
-            siblings: this.findSib(node),
-            width: this.getHeightOfRoot(node)
+            return {
+                peakBagging: node,
+                root: this.getRoot(),
+                siblings: this.findSib(node),
+                width: this.getHeightOfRoot(node)
+            }
+        }
+        catch{
+            return {}
         }
     }
     updateChild(index, value){
         let new_node = new MerkleNode(value)
         new_node.set_hash_func(this.digestFunction)
+        // console.log(this.merkle_nodes)
         this.merkle_nodes[index] = new_node
+        // console.log(this.merkle_nodes)
     }
     find_merkel_hash(hashed_contents){
         // Initialize the block
