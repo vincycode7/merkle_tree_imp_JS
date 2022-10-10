@@ -40,7 +40,7 @@ In conclusion our whitepaper proves the following thesis
 let entries = [A,B,C,D,E];
 let merkleTree = new MerkleTree(keccakDigestFunction,entries);
 let output = merkleTree.getRoot();
-console.log(output); //11b7ab423348113b7c8399bea7319ee49f59540522c54b6ab78dd4668fa977dd
+console.log(output); //126a97e6963a8d86b53757446743db0d66e62dad392d29d2986a8a52348a2cea
 // console.log(merkleTree.getProofOfInclusion('sff'))
 // merkleTree.updateChild(2,'sffeefefegf')
 // console.log(merkleTree.getProofOfInclusion(0))
