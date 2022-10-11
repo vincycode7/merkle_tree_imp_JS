@@ -137,7 +137,7 @@ class MerkleTree{
                 new_queue.push(curr_node.next_nodes[each_node])
             }
         }
-        return queue.length
+        return parseInt(queue.length/2)
     }
 
     displayNode(node){
