@@ -43,7 +43,7 @@ let output = merkleTree.getRoot();
 console.log("Initial output of root")
 console.log(output); //126a97e6963a8d86b53757446743db0d66e62dad392d29d2986a8a52348a2cea
 
-console.log("\n\nOut of root when node 0 and 1 are updated and the new root is calculatedd and displayed")
+console.log("\n\nOutput of root when node 0 and 1 are updated and the new root is calculatedd and displayed")
 merkleTree.updateChild(1,'sffeefefegf')
 merkleTree.updateChild(0,'sffeeejefefefegf')
 // merkleTree.updateChild(2,'sffeeeklwdjefefefegf')
